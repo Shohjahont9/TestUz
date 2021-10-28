@@ -4,7 +4,12 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Shohjahon/Uzcassa/app/src/main/res/drawable/ic_bookmark.xml" value="0.3828125" />
+        <entry key="..\:/Shohjahon/Uzcassa/app/src/main/res/layout/activity_main.xml" value="0.20520833333333333" />
         <entry key="..\:/Shohjahon/Uzcassa/app/src/main/res/layout/ite_card.xml" value="0.36666666666666664" />
+        <entry key="..\:/Shohjahon/Uzcassa/app/src/main/res/layout/item_photo_feed_next_page_loading.xml" value="0.37864583333333335" />
+        <entry key="..\:/Shohjahon/Uzcassa/app/src/main/res/layout/item_photo_feed_next_page_loading_error.xml" value="0.36666666666666664" />
+        <entry key="..\:/Shohjahon/Uzcassa/app/src/main/res/layout/rib_main.xml" value="0.35104166666666664" />
+        <entry key="..\:/Shohjahon/Uzcassa/app/src/main/res/layout/rib_news.xml" value="0.35104166666666664" />
       </map>
     </option>
   </component>
