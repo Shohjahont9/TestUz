@@ -9,9 +9,11 @@ class HelloWorldBuilder(
 
     override fun build(buildParams: BuildParams<Nothing?>): RootMain {
         val presenter = HelloWorldPresenterImpl(greeting = "Hello ${dependency.name}!")
+
         val viewDependencies: RootView.Dependency = object : RootView.Dependency {
             override val presenter: HelloWorldPresenter = presenter
         }
+
         return RootMainNode(
             buildParams = buildParams,
             viewFactory = HelloWorldViewImpl.Factory().invoke(deps = viewDependencies),

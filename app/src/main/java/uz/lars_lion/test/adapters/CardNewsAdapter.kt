@@ -11,7 +11,6 @@ import coil.request.ImageRequest
 import coil.request.ImageResult
 import uz.lars_lion.test.databinding.IteCardBinding
 import uz.lars_lion.test.model.ArticleLocal
-import uz.lars_lion.test.ui.main.item.ArticleListItem
 import uz.lars_lion.test.utils.visible
 
 class CardNewsAdapter(

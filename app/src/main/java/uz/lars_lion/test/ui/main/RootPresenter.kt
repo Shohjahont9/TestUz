@@ -17,13 +17,11 @@ internal class HelloWorldPresenterImpl(
 
     private lateinit var viewModel: MainViewModel
 
-
     override fun onViewCreated(view: RootView, viewLifecycle: Lifecycle) {
         viewLifecycle.subscribe(
             onCreate = { this@HelloWorldPresenterImpl.view = view },
             onDestroy = { this@HelloWorldPresenterImpl.view = null }
         )
-
 
     }
 
