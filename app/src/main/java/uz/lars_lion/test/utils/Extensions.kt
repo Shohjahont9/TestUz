@@ -10,8 +10,11 @@ import android.widget.Toast
 import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
+import io.reactivex.Observable
 import java.io.File
 
+fun <T> T?.toObservable(): Observable<T> =
+    if (this == null) Observable.empty() else Observable.just(this)
 
 fun Fragment.toast(message: String, isLong: Boolean = false) {
     if (!isLong)

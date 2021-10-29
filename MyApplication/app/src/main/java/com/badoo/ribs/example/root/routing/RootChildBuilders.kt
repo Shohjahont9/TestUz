@@ -1,5 +1,6 @@
 package com.badoo.ribs.example.root.routing
 
+import com.badoo.ribs.annotation.ExperimentalApi
 import com.badoo.ribs.example.auth.AuthDataSource
 import com.badoo.ribs.example.logged_in_container.LoggedInContainer
 import com.badoo.ribs.example.logged_in_container.LoggedInContainerBuilder
@@ -13,6 +14,7 @@ import com.badoo.ribs.portal.PortalBuilder
 import com.badoo.ribs.routing.resolution.ChildResolution.Companion.child
 import com.badoo.ribs.routing.resolution.Resolution
 
+@ExperimentalApi
 internal class RootChildBuilders(
     dependency: Root.Dependency,
     authDataSource: AuthDataSource

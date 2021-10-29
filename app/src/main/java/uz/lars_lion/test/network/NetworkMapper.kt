@@ -6,7 +6,6 @@ import uz.lars_lion.test.utils.EntityMapper
 import javax.inject.Inject
 
 class NetworkMapper @Inject constructor(
-
 ) : EntityMapper<Article, ArticleLocal> {
     override fun mapFromEntity(entity: Article): ArticleLocal {
         return ArticleLocal(
@@ -19,7 +18,7 @@ class NetworkMapper @Inject constructor(
     }
 
 
-    fun mapFromNetworkEntityList(entities: List<Article>):List<ArticleLocal>{
+   fun mapFromNetworkEntityList(entities: List<Article>):List<ArticleLocal>{
         return entities.map { mapFromEntity(it) }
     }
 

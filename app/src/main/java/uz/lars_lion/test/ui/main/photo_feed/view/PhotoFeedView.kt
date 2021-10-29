@@ -1,4 +1,4 @@
-package uz.lars_lion.test.ui.main
+package uz.lars_lion.test.ui.main.photo_feed.view
 
 import android.os.Build
 import android.view.View
@@ -17,44 +17,39 @@ import io.reactivex.ObservableSource
 import uz.lars_lion.test.R
 import uz.lars_lion.test.adapters.CardNewsAdapter
 import uz.lars_lion.test.model.ArticleLocal
-import java.util.function.Consumer
+import uz.lars_lion.test.network.NetworkMapper
+import uz.lars_lion.test.network.response.Article
 
 @RequiresApi(Build.VERSION_CODES.N)
-interface RootView : RibView, Consumer<RootView.ViewModel>,
-    ObservableSource<RootView.Event> {
+interface PhotoFeedView : RibView, java.util.function.Consumer<PhotoFeedView.ViewModel>,
+    ObservableSource<PhotoFeedView.Event> {
 
-    interface Factory : ViewFactoryBuilder<Dependency, RootView>
+    interface Factory : ViewFactoryBuilder<Nothing?, PhotoFeedView>
     sealed class Event {
-        data class ArticleClicked(val article: ArticleLocal) : Event()
+        object RetryNextPageLoadingClicked : Event()
+        data class ArticleClicked(val article: Article) : Event()
     }
 
     sealed class ViewModel {
-
-        data class Loaded(val article: List<ArticleLocal>) : ViewModel()
-
-    }
-
-    interface Dependency {
-        val presenter: HelloWorldPresenter
+        object InitialLoading : ViewModel()
+        data class Loaded(val articles: List<Article>) : ViewModel()
     }
 
 }
 
-class HelloWorldViewImpl private constructor(
+class PhotoFeedViewImpl private constructor(
     override val androidView: ViewGroup,
-    presenter: HelloWorldPresenter,
-    private val events: PublishRelay<RootView.Event> = PublishRelay.create()
-) : AndroidRibView(), RootView, ObservableSource<RootView.Event> by events,
-    io.reactivex.functions.Consumer<RootView.ViewModel> {
+    private val events: PublishRelay<PhotoFeedView.Event> = PublishRelay.create()
+) : AndroidRibView(), PhotoFeedView, ObservableSource<PhotoFeedView.Event> by events,
+    io.reactivex.functions.Consumer<PhotoFeedView.ViewModel> {
 
     class Factory(
         @LayoutRes private val layoutRes: Int = R.layout.rib_main
-    ) : RootView.Factory {
-        override fun invoke(deps: RootView.Dependency): ViewFactory<RootView> =
+    ) : PhotoFeedView.Factory {
+        override fun invoke(deps: Nothing?): ViewFactory<PhotoFeedView> =
             ViewFactory {
-                HelloWorldViewImpl(
+                PhotoFeedViewImpl(
                     androidView = it.inflate(layoutRes),
-                    presenter = deps.presenter
                 )
             }
     }
@@ -62,28 +57,28 @@ class HelloWorldViewImpl private constructor(
     private val adapter = CardNewsAdapter()
     private val rvCard: RecyclerView = androidView.findViewById(R.id.rv_card_news)
     private val rvItem: RecyclerView = androidView.findViewById(R.id.rv_item_news)
+
     init {
         rvCard.adapter = adapter
         (rvCard.itemAnimator as? SimpleItemAnimator)?.supportsChangeAnimations = false
-            }
+    }
 
-    override fun accept(vm: RootView.ViewModel) {
+    override fun accept(vm: PhotoFeedView.ViewModel) {
         when (vm) {
-            is RootView.ViewModel.Loaded -> showLoaded(vm)
+            is PhotoFeedView.ViewModel.Loaded -> showLoaded(vm)
         }
     }
 
 
-    private fun showLoaded(vm: RootView.ViewModel.Loaded) {
-        showListItems(vm.article)
+    private fun showLoaded(vm: PhotoFeedView.ViewModel.Loaded) {
+        showListItems(vm.articles)
     }
 
-    private fun showListItems(items: List<ArticleLocal>) {
-        adapter.submitList(items)
+    private fun showListItems(items: List<Article>) {
+        adapter.submitList(NetworkMapper().mapFromNetworkEntityList(items))
         rvCard.visibility = View.VISIBLE
 
     }
-
 
 
 }

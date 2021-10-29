@@ -22,13 +22,13 @@ class MainRepository @Inject constructor(
         delay(1000)
         try {
             val networkNews = apiService.getNews()
-            val articlesNetwork = networkNews.articles
-            val articles = networkMapper.mapFromNetworkEntityList(articlesNetwork)
-            for (article in articles) {
-                articleDAO.insertArticle(cacheMapper.mapToEntity(article))
-            }
-            val cachedArticles = articleDAO.getArticles()
-            emit(DataState.Success(cacheMapper.mapFromEntityList(cachedArticles)))
+//            val articlesNetwork = networkNews.
+//            val articles = networkMapper.mapFromNetworkEntityList(articlesNetwork)
+//            for (article in articles) {
+//                articleDAO.insertArticle(cacheMapper.mapToEntity(article))
+//            }
+//            val cachedArticles = articleDAO.getArticles()
+//            emit(DataState.Success(cacheMapper.mapFromEntityList(cachedArticles)))
         } catch (e: Exception) {
             emit(DataState.Error(e))
             println("Men shu yerdaman")

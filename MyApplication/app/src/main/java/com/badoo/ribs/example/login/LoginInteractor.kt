@@ -22,15 +22,16 @@ internal class LoginInteractor(
 ) {
     private val cancellable = CompositeCancellable()
     override fun onCreate(nodeLifecycle: Lifecycle) {
-        nodeLifecycle.subscribe(
+        nodeLifecycle.doOnError(it-> println(it)).subscribe(
             onCreate = {
                 cancellable += activityStarter.events(this)
                     .observe {
                         handleResult(it)
                     }
             },
-            onDestroy = { cancellable.cancel() }
-        )
+            onDestroy = { cancellable.cancel() },
+
+            )
         launchAuthCustomTab()
     }
 

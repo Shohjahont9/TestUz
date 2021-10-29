@@ -1,5 +1,6 @@
 package uz.lars_lion.test.network
 
+import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query
@@ -9,7 +10,7 @@ import uz.lars_lion.test.utils.Constants
 interface ApiService {
     @Headers("Content-Type: application/json")
     @GET("everything?q=tesla&from=2021-09-27&sortBy=publishedAt")
-    suspend fun getNews(
+     fun getNews(
         @Query("apiKey") apiKey: String = Constants.API_KEY
-    ): NewsResponse
+    ): Single<NewsResponse>
 }
